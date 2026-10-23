@@ -1,0 +1,95 @@
+# SpotAmp
+
+A light music player for Android that plays the music stored on your own phone. Inspired by Winamp: the controls sit at the top, and the track list fills the rest of the screen.
+
+No ads, no tracking, no account, no internet access. SpotAmp only reads the music folders you pick.
+
+## Features
+
+- **Music folders** - pick the folders with your music through the Android folder picker. SpotAmp reads them into the library in folder order, shows the list right away while it reads, and can watch the folders for new files. Add more folders at any time with the folder button at the top of the player.
+- **Player** - misty sound wave with drifting golden light and notes, raised controls, play/pause, stop, previous/next, shuffle, repeat (all or one), seek bar with a large target time while dragging.
+- **Playback with the screen off** - controls in the notification, on the lock screen, on headphones and in the car. Pauses for calls and when headphones disconnect, can resume when they connect, remembers the queue and position.
+- **Gapless playback and crossfade** (2 to 8 seconds).
+- **Library** - tracks, artists, albums and folders, sorting, A-Z index, track info, favorites.
+- **Playlists** - create, rename in place, drag to reorder, undo delete; automatic Recently added and Favorites.
+- **Search** - titles, artists, albums and file names, with filters and recent searches.
+- **Settings** - accent color, sound wave style (Flowing, Calm, Off), skip short files, subfolders, headphone behavior.
+
+## Privacy
+
+- No `INTERNET` permission: it is removed from the manifest, including anything a library might add.
+- No storage or microphone permission. Folders are opened through the system folder picker with a persisted read grant.
+- The sound wave is computed from the decoded audio inside the player, not from the microphone.
+- No cloud backup of app data. Library, playlists and settings stay on the device.
+
+## Requirements
+
+- Android 8.0 (API 26) or newer.
+- Built with compileSdk / targetSdk 36, JDK 17+ (tested with JDK 21), Gradle 8.14.3 (wrapper included).
+
+## Building
+
+```
+gradlew assembleDebug
+```
+
+The debug APK lands in `app/build/outputs/apk/debug/`.
+
+Release builds are signed with a key described in `keystore.properties` next to `settings.gradle.kts`. The file and the keystore are kept off the repository (`.gitignore`):
+
+```
+storeFile=path/to/upload-key.jks
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
+
+```
+gradlew bundleRelease
+```
+
+## Project structure
+
+- `app/src/main/java/app/spotamp/data` - folders, library, playlists, settings (JSON files and SharedPreferences, no database library).
+- `app/src/main/java/app/spotamp/playback` - background playback service (Media3), connection to the screen, audio level tap for the wave.
+- `app/src/main/java/app/spotamp/ui` - Jetpack Compose screens and components.
+- `app/src/main/res/font` - Inter, cut down to Latin with Polish letters.
+
+## Open-source components
+
+Inter typeface (SIL Open Font License 1.1), Jetpack Compose and AndroidX, Media3, Kotlin and kotlinx.coroutines, Guava (Apache License 2.0). Full license texts are shown in the app under About > Open-source licenses.
+
+## Copyright
+
+© 2026 Tomasz Pieczara. All rights reserved. The source code, assets, and documentation of this app are the property of the developer. Copying, modifying, redistributing, or selling all or part of the code, in source or compiled form, without the developer's written consent is prohibited.
+
+## Changelog
+
+### v0.0.5 - 2026-10-23 (versionCode 5)
+- While you drag the seek bar, a large target time replaces the track title in the middle of the player, so you can see exactly where you will land, even in hour-long recordings. The time next to the bar follows your finger too.
+
+### v0.0.4 - 2026-10-23 (versionCode 4)
+- Seeking now reaches the whole track: long tracks and recordings can be moved to any point, not only the first minutes.
+- The A-Z index in the Library always jumps within the current list, also after adding a folder or changing the sort order.
+
+### v0.0.3 - 2026-10-23 (versionCode 3)
+- After you pick a music folder, the player opens with the track list right away, in the same order as the files in the folder. Tracks appear while the folder is still being read, ready to play.
+- A thin progress bar under the list name shows how much of the folder has been read.
+- Folders are read faster: several files at a time.
+- Every new folder you add goes to the end of the list.
+- New folder button with a plus at the top of the player: add another music folder in one tap.
+- The side menu now holds Settings and About; the Settings button left the top bar.
+
+### v0.0.2 - 2026-10-23 (versionCode 2)
+- Side menu (top left): Close app, and the About screen with rating on Google Play, updates, version, contact, privacy policy, terms of service, support form, copyright and open-source licenses.
+- With the sound wave set to Off, the wave band is removed and the track list gets the extra room.
+- Lock screen and notification: tracks without their own cover show the SpotAmp wave with golden light and notes.
+- Richer app icon with depth, gloss and a gold note.
+
+### v0.0.1 - 2026-10-23 (versionCode 1)
+- First version of SpotAmp: a light player for music stored on your phone, inspired by Winamp. Controls at the top, the track list fills the rest of the screen.
+- Music folders: pick the folders with your music; SpotAmp reads them into the library and can watch them for new files.
+- Player: misty sound wave with drifting light and notes, raised controls, shuffle, repeat (all or one), stop, crossfade and gapless playback.
+- Plays with the screen off, with controls in the notification, on the lock screen, on headphones and in the car. Pauses for calls and when headphones disconnect, and remembers where you stopped.
+- Library with tracks, artists, albums and folders; playlists with drag to reorder; Recently added and Favorites; search with filters and recent searches.
+- No ads, no tracking, no account, no internet access: SpotAmp only reads the folders you pick.
