@@ -1,0 +1,11 @@
+<resources>
+    <color name="spotamp_background">#FF0C0810</color>
+
+    <style name="Theme.SpotAmp" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/spotamp_background</item>
+        <item name="android:colorBackground">@color/spotamp_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

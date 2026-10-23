@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher background: deep violet to burgundy, lit from the top left, glossy top, dark edges, thin rim light. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Base -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear" android:startX="0" android:startY="0" android:endX="108" android:endY="108">
+                <item android:offset="0" android:color="#FF2C1850" />
+                <item android:offset="0.55" android:color="#FF22102C" />
+                <item android:offset="1" android:color="#FF2E0E1E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Light from the top left -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="32" android:centerY="28" android:gradientRadius="62">
+                <item android:offset="0" android:color="#887A55F0" />
+                <item android:offset="1" android:color="#007A55F0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Warm glow, bottom right -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="84" android:centerY="82" android:gradientRadius="48">
+                <item android:offset="0" android:color="#55F28C4B" />
+                <item android:offset="1" android:color="#00F28C4B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Darker edges for depth -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="50" android:centerY="48" android:gradientRadius="62">
+                <item android:offset="0" android:color="#00000000" />
+                <item android:offset="0.62" android:color="#00000000" />
+                <item android:offset="1" android:color="#B0050208" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Gloss across the top -->
+    <path android:pathData="M0,0h108v40c-22,9 -86,9 -108,0z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear" android:startX="0" android:startY="10" android:endX="0" android:endY="48">
+                <item android:offset="0" android:color="#30FFFFFF" />
+                <item android:offset="1" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Rim light on the lit side -->
+    <path
+        android:pathData="M54,54m-35,0a35,35 0,1 1,70 0a35,35 0,1 1,-70 0"
+        android:strokeWidth="1.1">
+        <aapt:attr name="android:strokeColor">
+            <gradient android:type="linear" android:startX="22" android:startY="20" android:endX="70" android:endY="70">
+                <item android:offset="0" android:color="#66FFFFFF" />
+                <item android:offset="0.5" android:color="#00FFFFFF" />
+                <item android:offset="1" android:color="#00FFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>
