@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -46,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -53,6 +55,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -80,6 +83,8 @@ import app.spotamp.ui.Txt
 import app.spotamp.ui.WaveLayer
 import app.spotamp.ui.formatTime
 import app.spotamp.ui.rememberPositionMs
+import kotlinx.coroutines.delay
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sin
 
@@ -94,17 +99,36 @@ fun PlayerScreen(vm: AppViewModel, actions: AppActions, settings: Settings) {
 
     val hasQueue = state.queue.isNotEmpty()
     val current = state.currentId?.let { trackMap[it] }
-    val position = rememberPositionMs(vm.player, state.isPlaying)
+    var seekTarget by remember { mutableStateOf<Long?>(null) }
+    val position = rememberPositionMs(vm.player, state.isPlaying, seekTarget)
+    // Until the player reports the new position, show the seek target so the knob does not jump back.
+    val latestPosition by rememberUpdatedState(position)
+    LaunchedEffect(seekTarget) {
+        val target = seekTarget ?: return@LaunchedEffect
+        var waited = 0
+        while (abs(latestPosition - target) > 700 && waited < 2000) {
+            delay(50)
+            waited += 50
+        }
+        seekTarget = null
+    }
+    val shownPosition = seekTarget ?: position
     val duration = current?.durationMs?.takeIf { it > 0 } ?: state.durationMs
     var menuFor by remember { mutableIntStateOf(-1) }
     var queueMenu by remember { mutableStateOf(false) }
     var scrub by remember { mutableStateOf<Float?>(null) }
+    // Last dragged position, kept so the big time can fade out after the finger is lifted.
+    var lastScrub by remember { mutableFloatStateOf(0f) }
+    val timeAlpha by animateFloatAsState(if (scrub != null) 1f else 0f, tween(300), label = "scrubFade")
     var savingQueue by remember { mutableStateOf(false) }
     var infoFor by remember { mutableStateOf<app.spotamp.data.Track?>(null) }
     val favorites by vm.library.favorites.collectAsStateWithLifecycle()
 
     val density = LocalDensity.current
-    val waveTop = WindowInsets.statusBars.getTop(density) + with(density) { 48.dp.toPx() }
+    // Folded panel: the wave band moves up behind the title, seek bar and buttons, the list gets its room.
+    val foldable = settings.waveStyle != 2
+    val fold by animateFloatAsState(if (foldable && settings.playerCollapsed) 1f else 0f, tween(300), label = "panelFold")
+    val waveTop = WindowInsets.statusBars.getTop(density) + with(density) { (48.dp + 20.5.dp * fold).toPx() }
     val panelShape = RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp)
 
     Column(Modifier.fillMaxSize()) {
@@ -138,40 +162,49 @@ fun PlayerScreen(vm: AppViewModel, actions: AppActions, settings: Settings) {
                     GlassIcon(Ic.FolderAdd, "Add music folder") { actions.addFolder() }
                 }
                 // The wave band; with the wave off the player moves up and the list gets the room.
-                if (settings.waveStyle != 2) Spacer(Modifier.height(92.dp))
-                val scrubbing = scrub
-                // While the seek bar is dragged, a big target time replaces the title, away from the finger.
-                if (scrubbing != null) {
-                    Box(Modifier.fillMaxWidth().height(41.dp), contentAlignment = Alignment.Center) {
-                        Row(verticalAlignment = Alignment.Bottom) {
-                            Txt(formatTime((scrubbing * duration).toLong()), size = 30.sp, weight = FontWeight.SemiBold, brush = Brush.horizontalGradient(listOf(Color(0xFFF4ECFF), Pal.Gold)))
-                            Txt("  / " + formatTime(duration), Modifier.padding(bottom = 4.dp), size = 15.sp, color = Pal.Text2)
+                if (foldable) Spacer(Modifier.height(92.dp * (1f - fold)))
+                // While the seek bar is dragged, a big target time replaces the title, away from the finger; the two cross-fade.
+                Box {
+                    Column(Modifier.padding(horizontal = 22.dp).graphicsLayer { alpha = 1f - timeAlpha }) {
+                        Txt(current?.title ?: "Nothing playing", size = 18.sp, weight = FontWeight.SemiBold, color = if (current != null) Pal.Text else Pal.Text2)
+                        Row {
+                            val idle = when {
+                                folders.isEmpty() -> "Add a music folder to start"
+                                scans.isNotEmpty() -> "Reading your music..."
+                                else -> "Pick a track to play"
+                            }
+                            Txt(current?.artist ?: idle, Modifier.weight(1f), size = 13.sp, color = Pal.Text2)
+                            if (current != null) Txt(current.format, Modifier.padding(start = 8.dp), size = 13.sp, color = Pal.Text3)
                         }
                     }
-                } else Column(Modifier.padding(horizontal = 22.dp)) {
-                    Txt(current?.title ?: "Nothing playing", size = 18.sp, weight = FontWeight.SemiBold, color = if (current != null) Pal.Text else Pal.Text2)
-                    Row {
-                        val idle = when {
-                            folders.isEmpty() -> "Add a music folder to start"
-                            scans.isNotEmpty() -> "Reading your music..."
-                            else -> "Pick a track to play"
+                    if (timeAlpha > 0f) {
+                        Box(Modifier.matchParentSize().graphicsLayer { alpha = timeAlpha }, contentAlignment = Alignment.Center) {
+                            Row(verticalAlignment = Alignment.Bottom) {
+                                Txt(formatTime((lastScrub * duration).toLong()), size = 30.sp, weight = FontWeight.SemiBold, brush = Brush.horizontalGradient(listOf(Color(0xFFF4ECFF), Pal.Gold)))
+                                Txt("  / " + formatTime(duration), Modifier.padding(bottom = 4.dp), size = 15.sp, color = Pal.Text2)
+                            }
                         }
-                        Txt(current?.artist ?: idle, Modifier.weight(1f), size = 13.sp, color = Pal.Text2)
-                        if (current != null) Txt(current.format, Modifier.padding(start = 8.dp), size = 13.sp, color = Pal.Text3)
                     }
                 }
                 Row(
                     Modifier.fillMaxWidth().padding(start = 22.dp, end = 22.dp, top = 6.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    val shownMs = scrub?.let { (it * duration).toLong() } ?: position
+                    val shownMs = scrub?.let { (it * duration).toLong() } ?: shownPosition
                     Txt(if (hasQueue) formatTime(shownMs) else "-:--", Modifier.width(42.dp), size = 12.sp, color = if (hasQueue) Pal.Text else Pal.Disabled)
                     SeekBar(
-                        fraction = if (duration > 0) position.toFloat() / duration else 0f,
+                        fraction = if (duration > 0) shownPosition.toFloat() / duration else 0f,
                         enabled = hasQueue && duration > 0,
-                        onSeek = { vm.player.seekTo((it * duration).toLong()) },
+                        onSeek = {
+                            val ms = (it * duration).toLong()
+                            seekTarget = ms
+                            vm.player.seekTo(ms)
+                        },
                         modifier = Modifier.weight(1f),
-                        onScrub = { scrub = it },
+                        onScrub = {
+                            scrub = it
+                            if (it != null) lastScrub = it
+                        },
                     )
                     Txt(if (hasQueue) formatTime(duration) else "-:--", Modifier.width(42.dp), size = 12.sp, color = Pal.Text3, align = androidx.compose.ui.text.style.TextAlign.End)
                 }
@@ -203,6 +236,23 @@ fun PlayerScreen(vm: AppViewModel, actions: AppActions, settings: Settings) {
                             ) { Txt("1", size = 9.sp, color = Color.White, weight = FontWeight.SemiBold) }
                         }
                     }
+                }
+            }
+            // Small triangle under Repeat folds the panel up (and back down); the choice is remembered.
+            if (foldable) {
+                Box(
+                    Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(end = 26.dp)
+                        .size(26.dp)
+                        .rotate(180f * fold)
+                ) {
+                    IconTap(
+                        Ic.TriangleUp,
+                        if (settings.playerCollapsed) "Unfold player" else "Fold player up",
+                        { vm.library.prefs.update { it.copy(playerCollapsed = !it.playerCollapsed) } },
+                        tint = Pal.Text2, size = 26.dp, iconSize = 11.dp,
+                    )
                 }
             }
         }

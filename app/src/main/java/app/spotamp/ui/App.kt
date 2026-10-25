@@ -206,10 +206,11 @@ fun SpotAmpRoot(vm: AppViewModel = viewModel()) {
 
 /** Playback position, refreshed only while the screen is visible. */
 @Composable
-fun rememberPositionMs(player: PlayerConnection, playing: Boolean): Long {
+fun rememberPositionMs(player: PlayerConnection, playing: Boolean, refreshKey: Any? = null): Long {
     var pos by remember { mutableLongStateOf(player.positionMs()) }
     val owner = LocalLifecycleOwner.current
-    LaunchedEffect(owner, playing) {
+    // A new refreshKey (e.g. after a seek) restarts the loop, so the new position is read at once.
+    LaunchedEffect(owner, playing, refreshKey) {
         owner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             while (true) {
                 pos = player.positionMs()

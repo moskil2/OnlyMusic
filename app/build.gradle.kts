@@ -25,10 +25,10 @@ android {
         applicationId = "app.spotrobotics.spotamp"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "0.0.5"
+        versionCode = 7
+        versionName = "0.0.7"
         // Shown as "Build" in the Menu screen, like EggSPEED.
-        val stamp = SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date())
+        val stamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
         buildConfigField("String", "BUILD_STAMP", "\"$stamp\"")
     }
 

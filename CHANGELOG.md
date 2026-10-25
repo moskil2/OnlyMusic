@@ -1,6 +1,15 @@
 # Changelog
 
 
+## v0.0.7 - 2026-10-25 (versionCode 7)
+- With the player folded up, the sound wave sits higher, closer to the track title.
+- The build number in About is now plain digits.
+
+## v0.0.6 - 2026-10-25 (versionCode 6)
+- A small triangle in the bottom right corner of the player folds it up: the sound wave moves behind the title, seek bar and buttons, and the track list gets more room. Tap it again to unfold. SpotAmp remembers your choice.
+- After you drag the seek bar and lift your finger, the knob stays where you left it instead of briefly jumping back.
+- The large seek time and the track title now fade into each other smoothly.
+
 ## v0.0.5 - 2026-10-23 (versionCode 5)
 - While you drag the seek bar, a large target time replaces the track title in the middle of the player, so you can see exactly where you will land, even in hour-long recordings. The time next to the bar follows your finger too.
 

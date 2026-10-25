@@ -20,6 +20,7 @@ class Prefs(context: Context) {
             pauseOnDisconnect = sp.getBoolean("pauseOnDisconnect", true),
             resumeOnConnect = sp.getBoolean("resumeOnConnect", false),
             crossfadeSec = sp.getInt("crossfade", 0),
+            playerCollapsed = sp.getBoolean("playerCollapsed", false),
         )
     )
     val settings: StateFlow<Settings> = _settings.asStateFlow()
@@ -37,6 +38,7 @@ class Prefs(context: Context) {
             .putBoolean("pauseOnDisconnect", s.pauseOnDisconnect)
             .putBoolean("resumeOnConnect", s.resumeOnConnect)
             .putInt("crossfade", s.crossfadeSec)
+            .putBoolean("playerCollapsed", s.playerCollapsed)
             .apply()
     }
 

@@ -61,6 +61,7 @@ object Ic {
     val Minus by lazy { icon("M5 12h14") }
     val Up by lazy { icon("M6 15l6-6 6 6") }
     val Down by lazy { icon("M6 9l6 6 6-6") }
+    val TriangleUp by lazy { icon(fill = "M11.1 7.6a1 1 0 0 1 1.8 0l5.4 8.4a1 1 0 0 1-.9 1.5H6.6a1 1 0 0 1-.9-1.5z") }
     val Edit by lazy { icon("M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4") }
     val Trash by lazy { icon("M4 7h16M9 7V4.5h6V7M6.5 7l1 13h9l1-13") }
     val Refresh by lazy { icon("M20 11a8 8 0 1 0-2.3 5.7M20 4.5V11h-6.5") }

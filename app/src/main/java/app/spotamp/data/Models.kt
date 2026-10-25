@@ -45,6 +45,8 @@ data class Settings(
     val resumeOnConnect: Boolean = false,
     /** Crossfade length in seconds, 0 = off. */
     val crossfadeSec: Int = 0,
+    /** Player panel folded up, the wave drawn behind the title and buttons. */
+    val playerCollapsed: Boolean = false,
 )
 
 val CROSSFADE_STEPS = listOf(0, 2, 4, 6, 8)
