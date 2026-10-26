@@ -1,6 +1,9 @@
 # Changelog
 
 
+## v0.0.10 - 2026-10-26 (versionCode 10)
+- The track list on the main screen shows a small cover next to each track number. Tracks without a cover keep the space empty, so the titles stay in line.
+
 ## v0.0.9 - 2026-10-26 (versionCode 9)
 - SpotAmp is now called OnlyMusic: new name on the home screen, in the app and in the notification. It installs as a new app, so pick your music folders again.
 

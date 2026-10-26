@@ -6,8 +6,8 @@ No ads, no tracking, no account, no internet access. OnlyMusic only reads the mu
 
 ## Features
 
-- **Music folders** - pick the folders with your music through the Android folder picker. OnlyMusic reads them into the library in folder order, shows the list right away while it reads, and can watch the folders for new files. Add more folders at any time with the folder button at the top of the player.
-- **Player** - misty sound wave with drifting golden light and notes, raised controls, play/pause, stop, previous/next, shuffle, repeat (all or one), seek bar with a large target time while dragging.
+- **Music folders** - pick the folders with your music through the Android folder picker. OnlyMusic reads them into the library in folder order, shows the list right away while it reads, and can watch the folders for new files. The folder button at the top of the player opens Music folders, where you add or remove folders. A file reached through two picked folders (one inside the other) shows up only once.
+- **Player** - misty sound wave with drifting golden light and notes, raised controls, play/pause, stop, previous/next, shuffle, repeat (all or one), seek bar with a large target time while dragging. The track list shows a small cover next to each track number.
 - **Playback with the screen off** - controls in the notification, on the lock screen, on headphones and in the car. Pauses for calls and when headphones disconnect, can resume when they connect, remembers the queue and position.
 - **Gapless playback and crossfade** (2 to 8 seconds).
 - **Library** - tracks, artists, albums and folders, sorting, A-Z index, track info, favorites.
@@ -64,6 +64,9 @@ Inter typeface (SIL Open Font License 1.1), Jetpack Compose and AndroidX, Media3
 © 2026 Tomasz Pieczara. All rights reserved. The source code, assets, and documentation of this app are the property of the developer. Copying, modifying, redistributing, or selling all or part of the code, in source or compiled form, without the developer's written consent is prohibited.
 
 ## Changelog
+
+### v0.0.10 - 2026-10-26 (versionCode 10)
+- The track list on the main screen shows a small cover next to each track number. Tracks without a cover keep the space empty, so the titles stay in line.
 
 ### v0.0.9 - 2026-10-26 (versionCode 9)
 - SpotAmp is now called OnlyMusic: new name on the home screen, in the app and in the notification. It installs as a new app, so pick your music folders again.
