@@ -1,4 +1,4 @@
-package app.spotamp.ui.screens
+package app.onlymusic.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,22 +29,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import app.spotamp.data.MusicFolder
-import app.spotamp.data.ScanProgress
-import app.spotamp.ui.ActionSheet
-import app.spotamp.ui.AppActions
-import app.spotamp.ui.AppViewModel
-import app.spotamp.ui.Ic
-import app.spotamp.ui.IconTap
-import app.spotamp.ui.Icn
-import app.spotamp.ui.LocalAccent
-import app.spotamp.ui.MenuAction
-import app.spotamp.ui.Pal
-import app.spotamp.ui.PrimaryButton
-import app.spotamp.ui.ScreenHeader
-import app.spotamp.ui.SecondaryButton
-import app.spotamp.ui.SettingSwitch
-import app.spotamp.ui.Txt
+import app.onlymusic.data.MusicFolder
+import app.onlymusic.data.ScanProgress
+import app.onlymusic.ui.ActionSheet
+import app.onlymusic.ui.AppActions
+import app.onlymusic.ui.AppViewModel
+import app.onlymusic.ui.Ic
+import app.onlymusic.ui.IconTap
+import app.onlymusic.ui.Icn
+import app.onlymusic.ui.LocalAccent
+import app.onlymusic.ui.MenuAction
+import app.onlymusic.ui.Pal
+import app.onlymusic.ui.PrimaryButton
+import app.onlymusic.ui.ScreenHeader
+import app.onlymusic.ui.SecondaryButton
+import app.onlymusic.ui.SettingSwitch
+import app.onlymusic.ui.Txt
 import android.text.format.DateUtils
 
 @Composable
@@ -93,7 +93,7 @@ fun FoldersScreen(vm: AppViewModel, actions: AppActions) {
                 ) { on -> vm.library.prefs.update { it.copy(watchFolders = on) } }
             }
             Txt(
-                "SpotAmp only reads the folders you pick. Files stay where they are. Removing a folder only takes its tracks out of the library, nothing is deleted from the phone.",
+                "OnlyMusic only reads the folders you pick. Files stay where they are. Removing a folder only takes its tracks out of the library, nothing is deleted from the phone.",
                 Modifier.padding(horizontal = 4.dp, vertical = 12.dp),
                 size = 12.sp, color = Pal.Text3, maxLines = 6, lineHeight = 18.sp,
             )

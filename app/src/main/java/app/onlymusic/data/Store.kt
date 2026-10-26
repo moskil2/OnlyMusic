@@ -1,4 +1,4 @@
-package app.spotamp.data
+package app.onlymusic.data
 
 import android.util.AtomicFile
 import org.json.JSONArray

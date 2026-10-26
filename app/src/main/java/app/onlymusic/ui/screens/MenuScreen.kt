@@ -1,4 +1,4 @@
-package app.spotamp.ui.screens
+package app.onlymusic.ui.screens
 
 import android.content.Context
 import android.content.Intent
@@ -37,15 +37,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.spotamp.BuildConfig
-import app.spotamp.ui.AppActions
-import app.spotamp.ui.Ic
-import app.spotamp.ui.Icn
-import app.spotamp.ui.LocalAccent
-import app.spotamp.ui.Pal
-import app.spotamp.ui.Screen
-import app.spotamp.ui.ScreenHeader
-import app.spotamp.ui.Txt
+import app.onlymusic.BuildConfig
+import app.onlymusic.ui.AppActions
+import app.onlymusic.ui.Ic
+import app.onlymusic.ui.Icn
+import app.onlymusic.ui.LocalAccent
+import app.onlymusic.ui.Pal
+import app.onlymusic.ui.Screen
+import app.onlymusic.ui.ScreenHeader
+import app.onlymusic.ui.Txt
 
 private const val CONTACT_EMAIL = "tomasz.pieczara@gazeta.pl"
 private const val WEBSITE = "spotrobotics.app"
@@ -55,12 +55,12 @@ private const val SUPPORT_FORM_URL = "https://spotrobotics.app/support/"
 private const val GITHUB_DISPLAY = ""
 
 private const val PRIVACY =
-    "SpotAmp does not collect, send, or store any personal data beyond your phone. The app has no internet " +
+    "OnlyMusic does not collect, send, or store any personal data beyond your phone. The app has no internet " +
         "access: it only reads the music folders you pick, and your library, playlists and settings stay on " +
         "this device. No accounts, no ads, no analytics, no tracking."
 
 private const val TERMS =
-    "SpotAmp is a free player for audio files stored on your own device. You are responsible for having the " +
+    "OnlyMusic is a free player for audio files stored on your own device. You are responsible for having the " +
         "right to play the files you add. The app is provided \"as is\", without any warranty of uninterrupted " +
         "or error-free operation. The developer bears no responsibility whatsoever for damage resulting from " +
         "using the app - you use it at your own risk."
@@ -80,7 +80,7 @@ private const val COPYRIGHT_GITHUB =
 
 private const val COPYRIGHT_END = " The app is distributed exclusively through Google Play."
 
-/** The About screen (EggSPEED's "Menu") in SpotAmp's look: about, Google Play, contact and legal texts. */
+/** The About screen (EggSPEED's "Menu") in OnlyMusic's look: about, Google Play, contact and legal texts. */
 @Composable
 fun MenuScreen(actions: AppActions) {
     val context = LocalContext.current
@@ -151,8 +151,8 @@ fun MenuScreen(actions: AppActions) {
 @Composable
 fun Wordmark(sizeSp: Int) {
     Row {
-        Txt("Spot", size = sizeSp.sp, weight = FontWeight.SemiBold)
-        Txt("Amp", size = sizeSp.sp, weight = FontWeight.SemiBold, brush = Brush.horizontalGradient(listOf(Color(0xFFB794FF), Pal.Amber)))
+        Txt("Only", size = sizeSp.sp, weight = FontWeight.SemiBold)
+        Txt("Music", size = sizeSp.sp, weight = FontWeight.SemiBold, brush = Brush.horizontalGradient(listOf(Color(0xFFB794FF), Pal.Amber)))
     }
 }
 
@@ -237,7 +237,7 @@ private fun open(context: Context, intent: Intent) {
     runCatching { context.startActivity(intent) }
 }
 
-/** Opens SpotAmp in the Play Store app, or in the browser when the store app is missing. */
+/** Opens OnlyMusic in the Play Store app, or in the browser when the store app is missing. */
 private fun openPlayStore(context: Context) {
     val pkg = context.packageName
     val market = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg")).apply {

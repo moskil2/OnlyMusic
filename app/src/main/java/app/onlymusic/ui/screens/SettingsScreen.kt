@@ -1,4 +1,4 @@
-package app.spotamp.ui.screens
+package app.onlymusic.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,21 +34,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.platform.LocalDensity
-import app.spotamp.data.CROSSFADE_STEPS
-import app.spotamp.ui.WaveLayer
-import app.spotamp.ui.Accents
-import app.spotamp.ui.AppActions
-import app.spotamp.ui.AppViewModel
-import app.spotamp.ui.Ic
-import app.spotamp.ui.Icn
-import app.spotamp.ui.LocalAccent
-import app.spotamp.ui.Pal
-import app.spotamp.ui.Screen
-import app.spotamp.ui.ScreenHeader
-import app.spotamp.ui.SecondaryButton
-import app.spotamp.ui.SectionLabel
-import app.spotamp.ui.SettingSwitch
-import app.spotamp.ui.Txt
+import app.onlymusic.data.CROSSFADE_STEPS
+import app.onlymusic.ui.WaveLayer
+import app.onlymusic.ui.Accents
+import app.onlymusic.ui.AppActions
+import app.onlymusic.ui.AppViewModel
+import app.onlymusic.ui.Ic
+import app.onlymusic.ui.Icn
+import app.onlymusic.ui.LocalAccent
+import app.onlymusic.ui.Pal
+import app.onlymusic.ui.Screen
+import app.onlymusic.ui.ScreenHeader
+import app.onlymusic.ui.SecondaryButton
+import app.onlymusic.ui.SectionLabel
+import app.onlymusic.ui.SettingSwitch
+import app.onlymusic.ui.Txt
 
 private val WAVE_STYLES = listOf("Flowing", "Calm", "Off")
 
@@ -220,12 +220,12 @@ fun SettingsScreen(vm: AppViewModel, actions: AppActions) {
 
             Column(Modifier.padding(horizontal = 4.dp, vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Row {
-                    Txt("Spot", size = 14.sp, weight = FontWeight.SemiBold)
-                    Txt("Amp", size = 14.sp, weight = FontWeight.SemiBold, color = accent.text)
-                    Txt("  " + app.spotamp.BuildConfig.VERSION_NAME, size = 14.sp, color = Pal.Text3)
+                    Txt("Only", size = 14.sp, weight = FontWeight.SemiBold)
+                    Txt("Music", size = 14.sp, weight = FontWeight.SemiBold, color = accent.text)
+                    Txt("  " + app.onlymusic.BuildConfig.VERSION_NAME, size = 14.sp, color = Pal.Text3)
                 }
                 Txt(
-                    "No ads, no tracking, no account. SpotAmp has no internet access and only reads the folders you pick. Everything is free and nothing is locked.",
+                    "No ads, no tracking, no account. OnlyMusic has no internet access and only reads the folders you pick. Everything is free and nothing is locked.",
                     size = 12.sp, color = Pal.Text2, maxLines = 4, lineHeight = 18.sp,
                 )
             }

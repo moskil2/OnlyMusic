@@ -1,4 +1,4 @@
-package app.spotamp.data
+package app.onlymusic.data
 
 import android.content.Context
 import android.media.MediaMetadataRetriever

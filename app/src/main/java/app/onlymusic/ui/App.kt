@@ -1,4 +1,4 @@
-package app.spotamp.ui
+package app.onlymusic.ui
 
 import android.app.Activity
 import android.app.Application
@@ -33,9 +33,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.spotamp.playback.PlaybackService
-import app.spotamp.ui.screens.MenuScreen
-import app.spotamp.ui.screens.Wordmark
+import app.onlymusic.playback.PlaybackService
+import app.onlymusic.ui.screens.MenuScreen
+import app.onlymusic.ui.screens.Wordmark
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -60,32 +60,36 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import app.spotamp.SpotAmpApp
-import app.spotamp.data.Track
-import app.spotamp.playback.PlayerConnection
-import app.spotamp.ui.screens.FoldersScreen
-import app.spotamp.ui.screens.LibraryScreen
-import app.spotamp.ui.screens.PlayerScreen
-import app.spotamp.ui.screens.PlaylistDetailScreen
-import app.spotamp.ui.screens.PlaylistsScreen
-import app.spotamp.ui.screens.SearchScreen
-import app.spotamp.ui.screens.SettingsScreen
+import app.onlymusic.OnlyMusicApp
+import app.onlymusic.data.Track
+import app.onlymusic.playback.PlayerConnection
+import app.onlymusic.ui.screens.FoldersScreen
+import app.onlymusic.ui.screens.LibraryScreen
+import app.onlymusic.ui.screens.PlayerScreen
+import app.onlymusic.ui.screens.PlaylistDetailScreen
+import app.onlymusic.ui.screens.PlaylistsScreen
+import app.onlymusic.ui.screens.SearchScreen
+import app.onlymusic.ui.screens.SettingsScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 
 class AppViewModel(app: Application) : AndroidViewModel(app) {
-    val library = (app as SpotAmpApp).library
+    val library = (app as OnlyMusicApp).library
     val player = PlayerConnection(app, viewModelScope, library.prefs)
 
     init {
         // Tracks that appear while the app runs (a new folder, new files) go to the end of the
-        // main list, in folder order, ready to play.
+        // main list, in folder order, ready to play. Tracks that leave the library leave it too.
+        var known = library.tracks.value.mapTo(HashSet()) { it.id }
+        player.dropMissing { it in known }
         viewModelScope.launch {
-            var known = library.tracks.value.mapTo(HashSet()) { it.id }
             library.tracks.drop(1).collect { list ->
                 val added = list.filter { it.id !in known }.map { it.id }
-                known = list.mapTo(HashSet()) { it.id }
+                val now = list.mapTo(HashSet()) { it.id }
+                val removed = known.any { it !in now }
+                known = now
+                if (removed) player.dropMissing { it in known }
                 if (added.isNotEmpty()) player.appendNewTracks(added, "Library")
             }
         }
@@ -120,7 +124,7 @@ class AppActions(
 )
 
 @Composable
-fun SpotAmpRoot(vm: AppViewModel = viewModel()) {
+fun OnlyMusicRoot(vm: AppViewModel = viewModel()) {
     val settings by vm.library.prefs.settings.collectAsStateWithLifecycle()
     val playlists by vm.library.playlists.collectAsStateWithLifecycle()
     val stack = remember { mutableStateListOf<Screen>(Screen.Player) }
@@ -161,7 +165,7 @@ fun SpotAmpRoot(vm: AppViewModel = viewModel()) {
                 Screen.Search -> SearchScreen(vm, actions)
                 Screen.Settings -> SettingsScreen(vm, actions)
                 Screen.About -> MenuScreen(actions)
-                Screen.Licenses -> app.spotamp.ui.screens.LicensesScreen(actions)
+                Screen.Licenses -> app.onlymusic.ui.screens.LicensesScreen(actions)
             } }
 
             SideMenu(

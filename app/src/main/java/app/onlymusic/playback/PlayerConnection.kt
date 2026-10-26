@@ -1,4 +1,4 @@
-package app.spotamp.playback
+package app.onlymusic.playback
 
 import android.content.ComponentName
 import android.content.Context
@@ -6,7 +6,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
-import app.spotamp.data.Prefs
+import app.onlymusic.data.Prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,6 +38,8 @@ class PlayerConnection(context: Context, scope: CoroutineScope, private val pref
     private val listener = object : Player.Listener {
         override fun onEvents(player: Player, events: Player.Events) {
             refresh(player, events.contains(Player.EVENT_TIMELINE_CHANGED))
+            // A track kept only because it was playing goes once the player moves on.
+            if (events.contains(Player.EVENT_MEDIA_ITEM_TRANSITION)) dropMissing()
         }
     }
 
@@ -49,6 +51,7 @@ class PlayerConnection(context: Context, scope: CoroutineScope, private val pref
                 controller = c
                 c.addListener(listener)
                 refresh(c, true)
+                dropMissing()
                 if (pendingIds.isNotEmpty()) {
                     val ids = pendingIds.toList()
                     pendingIds.clear()
@@ -188,6 +191,35 @@ class PlayerConnection(context: Context, scope: CoroutineScope, private val pref
         if (index !in 0 until c.mediaItemCount || index == current) return
         val target = if (index < current) current else current + 1
         c.moveMediaItem(index, target)
+    }
+
+    private var inLibrary: ((String) -> Boolean)? = null
+
+    /**
+     * Takes tracks that left the library (a removed folder, a duplicate) out of the queue.
+     * The playing track stays until the player moves on, so the music is not cut off.
+     */
+    fun dropMissing(inLibrary: (String) -> Boolean) {
+        this.inLibrary = inLibrary
+        dropMissing()
+    }
+
+    private fun dropMissing() {
+        val c = controller ?: return
+        val keep = inLibrary ?: return
+        val current = c.currentMediaItemIndex
+        // From the end, in runs, so the indexes still to check do not shift.
+        var i = c.mediaItemCount - 1
+        while (i >= 0) {
+            if (i == current || keep(c.getMediaItemAt(i).mediaId)) {
+                i--
+                continue
+            }
+            val end = i + 1
+            while (i - 1 >= 0 && i - 1 != current && !keep(c.getMediaItemAt(i - 1).mediaId)) i--
+            c.removeMediaItems(i, end)
+            i--
+        }
     }
 
     fun clearQueue() {

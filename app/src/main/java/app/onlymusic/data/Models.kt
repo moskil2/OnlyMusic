@@ -1,4 +1,4 @@
-package app.spotamp.data
+package app.onlymusic.data
 
 /** One audio file. [id] is its document Uri, which is also the Media3 media id. */
 data class Track(
@@ -12,7 +12,7 @@ data class Track(
     val format: String,
     val modified: Long,
     val added: Long,
-    /** The file carries its own cover image. Without one, SpotAmp shows its wave artwork. */
+    /** The file carries its own cover image. Without one, OnlyMusic shows its wave artwork. */
     val hasArt: Boolean = true,
 )
 

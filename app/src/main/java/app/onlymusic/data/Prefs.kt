@@ -1,4 +1,4 @@
-package app.spotamp.data
+package app.onlymusic.data
 
 import android.content.Context
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import org.json.JSONArray
 
 class Prefs(context: Context) {
-    private val sp = context.getSharedPreferences("spotamp", Context.MODE_PRIVATE)
+    private val sp = context.getSharedPreferences("onlymusic", Context.MODE_PRIVATE)
 
     private val _settings = MutableStateFlow(
         Settings(

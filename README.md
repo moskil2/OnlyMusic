@@ -1,12 +1,12 @@
-# SpotAmp
+# OnlyMusic
 
 A light music player for Android that plays the music stored on your own phone. Inspired by Winamp: the controls sit at the top, and the track list fills the rest of the screen.
 
-No ads, no tracking, no account, no internet access. SpotAmp only reads the music folders you pick.
+No ads, no tracking, no account, no internet access. OnlyMusic only reads the music folders you pick.
 
 ## Features
 
-- **Music folders** - pick the folders with your music through the Android folder picker. SpotAmp reads them into the library in folder order, shows the list right away while it reads, and can watch the folders for new files. Add more folders at any time with the folder button at the top of the player.
+- **Music folders** - pick the folders with your music through the Android folder picker. OnlyMusic reads them into the library in folder order, shows the list right away while it reads, and can watch the folders for new files. Add more folders at any time with the folder button at the top of the player.
 - **Player** - misty sound wave with drifting golden light and notes, raised controls, play/pause, stop, previous/next, shuffle, repeat (all or one), seek bar with a large target time while dragging.
 - **Playback with the screen off** - controls in the notification, on the lock screen, on headphones and in the car. Pauses for calls and when headphones disconnect, can resume when they connect, remembers the queue and position.
 - **Gapless playback and crossfade** (2 to 8 seconds).
@@ -50,9 +50,9 @@ gradlew bundleRelease
 
 ## Project structure
 
-- `app/src/main/java/app/spotamp/data` - folders, library, playlists, settings (JSON files and SharedPreferences, no database library).
-- `app/src/main/java/app/spotamp/playback` - background playback service (Media3), connection to the screen, audio level tap for the wave.
-- `app/src/main/java/app/spotamp/ui` - Jetpack Compose screens and components.
+- `app/src/main/java/app/onlymusic/data` - folders, library, playlists, settings (JSON files and SharedPreferences, no database library).
+- `app/src/main/java/app/onlymusic/playback` - background playback service (Media3), connection to the screen, audio level tap for the wave.
+- `app/src/main/java/app/onlymusic/ui` - Jetpack Compose screens and components.
 - `app/src/main/res/font` - Inter, cut down to Latin with Polish letters.
 
 ## Open-source components
@@ -64,6 +64,14 @@ Inter typeface (SIL Open Font License 1.1), Jetpack Compose and AndroidX, Media3
 © 2026 Tomasz Pieczara. All rights reserved. The source code, assets, and documentation of this app are the property of the developer. Copying, modifying, redistributing, or selling all or part of the code, in source or compiled form, without the developer's written consent is prohibited.
 
 ## Changelog
+
+### v0.0.9 - 2026-10-26 (versionCode 9)
+- SpotAmp is now called OnlyMusic: new name on the home screen, in the app and in the notification. It installs as a new app, so pick your music folders again.
+
+### v0.0.8 - 2026-10-26 (versionCode 8)
+- The folder icon on the main screen now opens Music folders, where you can see your folders, remove one or add another.
+- A file inside two picked folders (one folder inside the other) shows up only once in the Library. Tracks that leave the Library also leave the main list; the track that is playing stays until the next one starts.
+- The track length next to the seek bar is as bright as the current time.
 
 ### v0.0.7 - 2026-10-25 (versionCode 7)
 - With the player folded up, the sound wave sits higher, closer to the track title.

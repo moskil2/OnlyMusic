@@ -1,4 +1,4 @@
-package app.spotamp.playback
+package app.onlymusic.playback
 
 import androidx.annotation.OptIn
 import androidx.media3.common.C

@@ -1,4 +1,4 @@
-package app.spotamp.ui.screens
+package app.onlymusic.ui.screens
 
 import android.net.Uri
 import androidx.compose.animation.core.LinearEasing
@@ -39,7 +39,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import app.spotamp.ui.TextPrompt
+import app.onlymusic.ui.TextPrompt
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
@@ -63,26 +63,26 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.common.Player
-import app.spotamp.data.Settings
-import app.spotamp.ui.ActionSheet
-import app.spotamp.ui.AppActions
-import app.spotamp.ui.AppViewModel
-import app.spotamp.ui.Ic
-import app.spotamp.ui.IconTap
-import app.spotamp.ui.Icn
-import app.spotamp.ui.LocalAccent
-import app.spotamp.ui.MenuAction
-import app.spotamp.ui.Pal
-import app.spotamp.ui.PlayButton
-import app.spotamp.ui.PrimaryButton
-import app.spotamp.ui.RaisedButton
-import app.spotamp.ui.Screen
-import app.spotamp.ui.SecondaryButton
-import app.spotamp.ui.TrackRow
-import app.spotamp.ui.Txt
-import app.spotamp.ui.WaveLayer
-import app.spotamp.ui.formatTime
-import app.spotamp.ui.rememberPositionMs
+import app.onlymusic.data.Settings
+import app.onlymusic.ui.ActionSheet
+import app.onlymusic.ui.AppActions
+import app.onlymusic.ui.AppViewModel
+import app.onlymusic.ui.Ic
+import app.onlymusic.ui.IconTap
+import app.onlymusic.ui.Icn
+import app.onlymusic.ui.LocalAccent
+import app.onlymusic.ui.MenuAction
+import app.onlymusic.ui.Pal
+import app.onlymusic.ui.PlayButton
+import app.onlymusic.ui.PrimaryButton
+import app.onlymusic.ui.RaisedButton
+import app.onlymusic.ui.Screen
+import app.onlymusic.ui.SecondaryButton
+import app.onlymusic.ui.TrackRow
+import app.onlymusic.ui.Txt
+import app.onlymusic.ui.WaveLayer
+import app.onlymusic.ui.formatTime
+import app.onlymusic.ui.rememberPositionMs
 import kotlinx.coroutines.delay
 import kotlin.math.abs
 import kotlin.math.max
@@ -121,7 +121,7 @@ fun PlayerScreen(vm: AppViewModel, actions: AppActions, settings: Settings) {
     var lastScrub by remember { mutableFloatStateOf(0f) }
     val timeAlpha by animateFloatAsState(if (scrub != null) 1f else 0f, tween(300), label = "scrubFade")
     var savingQueue by remember { mutableStateOf(false) }
-    var infoFor by remember { mutableStateOf<app.spotamp.data.Track?>(null) }
+    var infoFor by remember { mutableStateOf<app.onlymusic.data.Track?>(null) }
     val favorites by vm.library.favorites.collectAsStateWithLifecycle()
 
     val density = LocalDensity.current
@@ -153,13 +153,13 @@ fun PlayerScreen(vm: AppViewModel, actions: AppActions, settings: Settings) {
                 ) {
                     GlassIcon(Ic.Hamburger, "Menu") { actions.openMenu() }
                     Spacer(Modifier.width(10.dp))
-                    Txt("Spot", size = 17.sp, weight = FontWeight.SemiBold)
-                    Txt("Amp", size = 17.sp, weight = FontWeight.SemiBold, brush = Brush.horizontalGradient(listOf(Color(0xFFB794FF), Pal.Amber)))
+                    Txt("Only", size = 17.sp, weight = FontWeight.SemiBold)
+                    Txt("Music", size = 17.sp, weight = FontWeight.SemiBold, brush = Brush.horizontalGradient(listOf(Color(0xFFB794FF), Pal.Amber)))
                     Spacer(Modifier.weight(1f))
                     GlassIcon(Ic.Search, "Search") { actions.go(Screen.Search) }
                     GlassIcon(Ic.Library, "Library") { actions.go(Screen.Library()) }
                     GlassIcon(Ic.Playlists, "Playlists") { actions.go(Screen.Playlists) }
-                    GlassIcon(Ic.FolderAdd, "Add music folder") { actions.addFolder() }
+                    GlassIcon(Ic.FolderAdd, "Music folders") { actions.go(Screen.Folders) }
                 }
                 // The wave band; with the wave off the player moves up and the list gets the room.
                 if (foldable) Spacer(Modifier.height(92.dp * (1f - fold)))
@@ -206,7 +206,7 @@ fun PlayerScreen(vm: AppViewModel, actions: AppActions, settings: Settings) {
                             if (it != null) lastScrub = it
                         },
                     )
-                    Txt(if (hasQueue) formatTime(duration) else "-:--", Modifier.width(42.dp), size = 12.sp, color = Pal.Text3, align = androidx.compose.ui.text.style.TextAlign.End)
+                    Txt(if (hasQueue) formatTime(duration) else "-:--", Modifier.width(42.dp), size = 12.sp, color = if (hasQueue) Pal.Text else Pal.Disabled, align = androidx.compose.ui.text.style.TextAlign.End)
                 }
                 Row(
                     Modifier.fillMaxWidth().height(96.dp).padding(horizontal = 16.dp),
@@ -518,7 +518,7 @@ private fun EmptyQueue(
                 ) { Icn(Ic.FolderAdd, Pal.Highlight, 24.dp) }
                 Txt("Your library is empty", size = 22.sp, weight = FontWeight.SemiBold)
                 Txt(
-                    "Pick a folder with music on this phone. SpotAmp reads the files from it into your library. You can add more folders at any time.",
+                    "Pick a folder with music on this phone. OnlyMusic reads the files from it into your library. You can add more folders at any time.",
                     size = 14.sp, color = Pal.Text2, maxLines = 4, lineHeight = 21.sp,
                 )
                 PrimaryButton("Add music folder", onAddFolder, Modifier.fillMaxWidth().padding(top = 8.dp), height = 54.dp, icon = Ic.FolderAdd)

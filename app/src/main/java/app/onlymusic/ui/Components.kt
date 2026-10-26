@@ -1,4 +1,4 @@
-package app.spotamp.ui
+package app.onlymusic.ui
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas

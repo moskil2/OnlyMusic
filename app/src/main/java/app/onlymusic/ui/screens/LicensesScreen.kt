@@ -1,4 +1,4 @@
-package app.spotamp.ui.screens
+package app.onlymusic.ui.screens
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -30,14 +30,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import app.spotamp.R
-import app.spotamp.ui.AppActions
-import app.spotamp.ui.Ic
-import app.spotamp.ui.Icn
-import app.spotamp.ui.Pal
-import app.spotamp.ui.ScreenHeader
-import app.spotamp.ui.SectionLabel
-import app.spotamp.ui.Txt
+import app.onlymusic.R
+import app.onlymusic.ui.AppActions
+import app.onlymusic.ui.Ic
+import app.onlymusic.ui.Icn
+import app.onlymusic.ui.Pal
+import app.onlymusic.ui.ScreenHeader
+import app.onlymusic.ui.SectionLabel
+import app.onlymusic.ui.Txt
 
 private class Component(val name: String, val owner: String, val license: String)
 
@@ -57,7 +57,7 @@ fun LicensesScreen(actions: AppActions) {
     val apache = remember { context.resources.openRawResource(R.raw.license_apache2).bufferedReader().use { it.readText() } }
 
     Column(Modifier.fillMaxSize()) {
-        ScreenHeader("Open-source licenses", "SpotAmp is built with these components", actions.back)
+        ScreenHeader("Open-source licenses", "OnlyMusic is built with these components", actions.back)
         Column(
             Modifier
                 .weight(1f)

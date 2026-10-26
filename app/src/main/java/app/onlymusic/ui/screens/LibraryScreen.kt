@@ -1,4 +1,4 @@
-package app.spotamp.ui.screens
+package app.onlymusic.ui.screens
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -41,25 +41,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import app.spotamp.data.Track
-import app.spotamp.ui.AppActions
-import app.spotamp.ui.AppViewModel
-import app.spotamp.ui.Chip
-import app.spotamp.ui.Ic
-import app.spotamp.ui.IconTap
-import app.spotamp.ui.Icn
-import app.spotamp.ui.LocalAccent
-import app.spotamp.ui.ActionSheet
-import app.spotamp.ui.MenuAction
-import app.spotamp.ui.MiniPlayerBar
-import app.spotamp.ui.Pal
-import app.spotamp.ui.PrimaryButton
-import app.spotamp.ui.Screen
-import app.spotamp.ui.ScreenHeader
-import app.spotamp.ui.TrackRow
-import app.spotamp.ui.Txt
-import app.spotamp.ui.formatTime
-import app.spotamp.ui.subtitle
+import app.onlymusic.data.Track
+import app.onlymusic.ui.AppActions
+import app.onlymusic.ui.AppViewModel
+import app.onlymusic.ui.Chip
+import app.onlymusic.ui.Ic
+import app.onlymusic.ui.IconTap
+import app.onlymusic.ui.Icn
+import app.onlymusic.ui.LocalAccent
+import app.onlymusic.ui.ActionSheet
+import app.onlymusic.ui.MenuAction
+import app.onlymusic.ui.MiniPlayerBar
+import app.onlymusic.ui.Pal
+import app.onlymusic.ui.PrimaryButton
+import app.onlymusic.ui.Screen
+import app.onlymusic.ui.ScreenHeader
+import app.onlymusic.ui.TrackRow
+import app.onlymusic.ui.Txt
+import app.onlymusic.ui.formatTime
+import app.onlymusic.ui.subtitle
 import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.text.Normalizer
@@ -143,7 +143,7 @@ fun LibraryScreen(vm: AppViewModel, actions: AppActions, screen: Screen.Library)
                 verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
             ) {
                 Txt("No music yet", size = 20.sp, weight = FontWeight.SemiBold)
-                Txt("Add a folder with music and SpotAmp will read it into your library.", size = 14.sp, color = Pal.Text2, maxLines = 3, lineHeight = 21.sp)
+                Txt("Add a folder with music and OnlyMusic will read it into your library.", size = 14.sp, color = Pal.Text2, maxLines = 3, lineHeight = 21.sp)
                 PrimaryButton("Add music folder", actions.addFolder, Modifier.fillMaxWidth(), height = 52.dp, icon = Ic.FolderAdd)
             }
             open != null -> TrackList(vm, open.tracks, open.name, null, {}, false, { menuFor = it }, Modifier.weight(1f))

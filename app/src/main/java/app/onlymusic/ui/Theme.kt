@@ -1,4 +1,4 @@
-package app.spotamp.ui
+package app.onlymusic.ui
 
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -18,7 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import app.spotamp.R
+import app.onlymusic.R
 
 object Pal {
     val Bg = Color(0xFF0C0810)

@@ -17,16 +17,16 @@ val keystoreProps = Properties().apply {
 }
 
 android {
-    namespace = "app.spotamp"
+    namespace = "app.onlymusic"
     compileSdk = 36
 
     defaultConfig {
         // Permanent once published on Google Play.
-        applicationId = "app.spotrobotics.spotamp"
+        applicationId = "app.spotrobotics.onlymusic"
         minSdk = 26
         targetSdk = 36
-        versionCode = 7
-        versionName = "0.0.7"
+        versionCode = 9
+        versionName = "0.0.9"
         // Shown as "Build" in the Menu screen, like EggSPEED.
         val stamp = SimpleDateFormat("yyyyMMddHHmm").format(Date())
         buildConfigField("String", "BUILD_STAMP", "\"$stamp\"")

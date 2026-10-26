@@ -1,4 +1,4 @@
-package app.spotamp.data
+package app.onlymusic.data
 
 import android.content.Context
 import android.content.Intent
@@ -133,6 +133,8 @@ class LibraryRepository(private val context: Context, private val scope: Corouti
             store.saveFolders(_folders.value)
             store.saveTracks(_tracks.value)
         }
+        // Files the removed folder shared with another picked folder go back to that folder.
+        rescanAll()
     }
 
     fun rescanAll() = _folders.value.forEach { rescan(it.id) }
@@ -148,8 +150,15 @@ class LibraryRepository(private val context: Context, private val scope: Corouti
         val settings = prefs.settings.value
         // total 0 = still looking for files
         _scans.update { it + (folderId to ScanProgress(0, 0)) }
+        // One file reached through two picked folders (one inside the other) belongs to the
+        // folder added first; folders added later skip it, earlier ones take it over.
+        val order = _folders.value.map { it.id }
+        val earlier = order.takeWhile { it != folderId }.toSet()
+        val later = order.dropWhile { it != folderId }.drop(1).toSet()
+        val taken = _tracks.value.filter { it.folderId in earlier }.mapTo(HashSet()) { fileKey(it.id) }
         val entries = try {
             scanner.listAudio(Uri.parse(folderId), settings.includeSubfolders)
+                .filterNot { fileKey(it.uri.toString()) in taken }
         } catch (e: Exception) {
             // Folder moved, card removed or access revoked: keep known tracks, mark the folder.
             _folders.update { list -> list.map { if (it.id == folderId) it.copy(unavailable = true) else it } }
@@ -179,19 +188,39 @@ class LibraryRepository(private val context: Context, private val scope: Corouti
             processed += batch.size
             val notYetRead = entries.drop(processed).mapNotNull { known[it.uri.toString()] }
             val snapshot = result + notYetRead
-            _tracks.update { list -> list.filterNot { it.folderId == folderId } + snapshot }
+            _tracks.update { list -> replaceFolderTracks(list, folderId, later, snapshot) }
             _scans.update { it + (folderId to ScanProgress(processed, entries.size)) }
         }
-        _tracks.update { list -> list.filterNot { it.folderId == folderId } + result }
+        _tracks.update { list -> replaceFolderTracks(list, folderId, later, result) }
+        val counts = _tracks.value.groupingBy { it.folderId }.eachCount()
         _folders.update { list ->
             list.map {
-                if (it.id == folderId) it.copy(trackCount = result.size, lastScan = now, unavailable = false) else it
+                if (it.id == folderId) {
+                    it.copy(trackCount = result.size, lastScan = now, unavailable = false)
+                } else {
+                    it.copy(trackCount = counts[it.id] ?: 0)
+                }
             }
         }
         _scans.update { it - folderId }
         store.saveTracks(_tracks.value)
         store.saveFolders(_folders.value)
     }
+
+    /** Puts [fresh] in place of the folder's tracks and drops the same files from folders added later. */
+    private fun replaceFolderTracks(list: List<Track>, folderId: String, later: Set<String>, fresh: List<Track>): List<Track> {
+        val keys = fresh.mapTo(HashSet()) { fileKey(it.id) }
+        return list.filterNot { it.folderId == folderId || (it.folderId in later && fileKey(it.id) in keys) } + fresh
+    }
+
+    /**
+     * The same file has a different Uri under each picked folder, but the same document id
+     * (e.g. "primary:Music/Rips/song.mp3"), so that id recognizes one file seen twice.
+     */
+    private fun fileKey(id: String): String = runCatching {
+        val uri = Uri.parse(id)
+        "${uri.authority}|${DocumentsContract.getDocumentId(uri)}"
+    }.getOrDefault(id)
 
     // ---- Playlists ----
 

@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v0.0.9 - 2026-10-26 (versionCode 9)
+- SpotAmp is now called OnlyMusic: new name on the home screen, in the app and in the notification. It installs as a new app, so pick your music folders again.
+
+## v0.0.8 - 2026-10-26 (versionCode 8)
+- The folder icon on the main screen now opens Music folders, where you can see your folders, remove one or add another.
+- A file inside two picked folders (one folder inside the other) shows up only once in the Library. Tracks that leave the Library also leave the main list; the track that is playing stays until the next one starts.
+- The track length next to the seek bar is as bright as the current time.
+
 ## v0.0.7 - 2026-10-25 (versionCode 7)
 - With the player folded up, the sound wave sits higher, closer to the track title.
 - The build number in About is now plain digits.

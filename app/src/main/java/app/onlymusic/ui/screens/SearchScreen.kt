@@ -1,4 +1,4 @@
-package app.spotamp.ui.screens
+package app.onlymusic.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -45,23 +45,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import app.spotamp.data.Track
-import app.spotamp.ui.AppActions
-import app.spotamp.ui.AppViewModel
-import app.spotamp.ui.Chip
-import app.spotamp.ui.Ic
-import app.spotamp.ui.IconTap
-import app.spotamp.ui.Icn
-import app.spotamp.ui.LocalAccent
-import app.spotamp.ui.Pal
-import app.spotamp.ui.Screen
-import app.spotamp.ui.SectionLabel
-import app.spotamp.ui.TrackRow
-import app.spotamp.ui.Txt
-import app.spotamp.ui.formatTime
-import app.spotamp.ui.highlight
-import app.spotamp.ui.subtitle
-import app.spotamp.ui.textStyle
+import app.onlymusic.data.Track
+import app.onlymusic.ui.AppActions
+import app.onlymusic.ui.AppViewModel
+import app.onlymusic.ui.Chip
+import app.onlymusic.ui.Ic
+import app.onlymusic.ui.IconTap
+import app.onlymusic.ui.Icn
+import app.onlymusic.ui.LocalAccent
+import app.onlymusic.ui.Pal
+import app.onlymusic.ui.Screen
+import app.onlymusic.ui.SectionLabel
+import app.onlymusic.ui.TrackRow
+import app.onlymusic.ui.Txt
+import app.onlymusic.ui.formatTime
+import app.onlymusic.ui.highlight
+import app.onlymusic.ui.subtitle
+import app.onlymusic.ui.textStyle
 
 private val FILTERS = listOf("All", "Tracks", "Artists", "Albums")
 

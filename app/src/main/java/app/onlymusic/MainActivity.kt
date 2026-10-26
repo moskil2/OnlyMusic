@@ -1,4 +1,4 @@
-package app.spotamp
+package app.onlymusic
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import app.spotamp.ui.SpotAmpRoot
+import app.onlymusic.ui.OnlyMusicRoot
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +15,6 @@ class MainActivity : ComponentActivity() {
             statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
             navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
         )
-        setContent { SpotAmpRoot() }
+        setContent { OnlyMusicRoot() }
     }
 }

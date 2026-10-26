@@ -1,4 +1,4 @@
-package app.spotamp.playback
+package app.onlymusic.playback
 
 import android.app.PendingIntent
 import android.content.Context
@@ -33,9 +33,9 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
 import androidx.media3.session.SessionCommand
 import androidx.media3.session.SessionResult
-import app.spotamp.MainActivity
-import app.spotamp.SpotAmpApp
-import app.spotamp.data.LibraryRepository
+import app.onlymusic.MainActivity
+import app.onlymusic.OnlyMusicApp
+import app.onlymusic.data.LibraryRepository
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
@@ -70,7 +70,7 @@ class PlaybackService : MediaSessionService() {
 
     override fun onCreate() {
         super.onCreate()
-        library = (application as SpotAmpApp).library
+        library = (application as OnlyMusicApp).library
 
         val renderers = object : DefaultRenderersFactory(this) {
             override fun buildAudioSink(
@@ -236,7 +236,7 @@ class PlaybackService : MediaSessionService() {
             val prefs = library.prefs
             if (events.contains(Player.EVENT_TIMELINE_CHANGED)) {
                 val ids = List(player.mediaItemCount) { player.getMediaItemAt(it).mediaId }
-                prefs.saveQueue(app.spotamp.data.Prefs.SavedQueue(prefs.queueName, ids, player.currentMediaItemIndex, player.currentPosition))
+                prefs.saveQueue(app.onlymusic.data.Prefs.SavedQueue(prefs.queueName, ids, player.currentMediaItemIndex, player.currentPosition))
             } else if (events.containsAny(
                     Player.EVENT_MEDIA_ITEM_TRANSITION,
                     Player.EVENT_IS_PLAYING_CHANGED,
@@ -457,8 +457,8 @@ class PlaybackService : MediaSessionService() {
     private class ArtNote(val x: Float, val y: Float, val scale: Float, val rotation: Float, val double: Boolean, val color: Int)
 
     companion object {
-        private val CMD_REPEAT = SessionCommand("app.spotamp.REPEAT", Bundle.EMPTY)
-        private val CMD_STOP = SessionCommand("app.spotamp.STOP", Bundle.EMPTY)
+        private val CMD_REPEAT = SessionCommand("app.onlymusic.REPEAT", Bundle.EMPTY)
+        private val CMD_STOP = SessionCommand("app.onlymusic.STOP", Bundle.EMPTY)
         private const val GAP_MS = 1_000L
     }
 }

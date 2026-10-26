@@ -1,4 +1,4 @@
-package app.spotamp.ui
+package app.onlymusic.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.vector.PathParser
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
-import app.spotamp.playback.LevelTap
+import app.onlymusic.playback.LevelTap
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.exp

@@ -7,12 +7,12 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!-- SpotAmp never goes online: strip network access even if a library asks for it -->
+    <!-- OnlyMusic never goes online: strip network access even if a library asks for it -->
     <uses-permission android:name="android.permission.INTERNET" tools:node="remove" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" tools:node="remove" />
 
     <application
-        android:name=".SpotAmpApp"
+        android:name=".OnlyMusicApp"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SpotAmp"
+        android:theme="@style/Theme.OnlyMusic"
         tools:targetApi="36">
 
         <activity
