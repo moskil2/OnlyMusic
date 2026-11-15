@@ -1,19 +1,55 @@
 # OnlyMusic
 
-A light music player for Android that plays the music stored on your own phone. Inspired by Winamp: the controls sit at the top, and the track list fills the rest of the screen.
+<h2 align="center">Download</h2>
 
-No ads, no tracking, no account, no internet access. OnlyMusic only reads the music folders you pick.
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=app.spotrobotics.onlymusic">
+    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="300" alt="Get it on Google Play" />
+  </a>
+</p>
+
+<p align="center">
+  <img src="LOGO.png" width="180" alt="OnlyMusic icon" />
+</p>
+
+<p align="center">
+  A light music player for Android that plays the music stored on your own phone. Inspired by Winamp: the controls sit at the top, and the track list fills the rest of the screen.
+</p>
+
+<p align="center">
+  No ads, no tracking, no account, no internet access. OnlyMusic only reads the music folders you pick.
+</p>
+
+<p align="center">
+  <a href="https://spotrobotics.app/onlymusic/">Presentation page</a>
+  &nbsp;|&nbsp;
+  <a href="https://play.google.com/store/apps/details?id=app.spotrobotics.onlymusic">Download</a>
+  &nbsp;|&nbsp;
+  <a href="https://spotrobotics.app/support/">Support</a>
+</p>
+
+<table align="center">
+  <tr>
+    <td><img src="screenshots/01_main.jpg" width="140" alt="Player and track list" /></td>
+    <td><img src="screenshots/02_library.jpg" width="140" alt="Library" /></td>
+    <td><img src="screenshots/03_folders.jpg" width="140" alt="Music folders" /></td>
+    <td><img src="screenshots/04_settings.jpg" width="140" alt="Settings" /></td>
+    <td><img src="screenshots/05_about.jpg" width="140" alt="About" /></td>
+  </tr>
+</table>
 
 ## Features
 
 - **Music folders** - pick the folders with your music through the Android folder picker. OnlyMusic reads them into the library in folder order, shows the list right away while it reads, and can watch the folders for new files. The folder button at the top of the player opens Music folders, where you add or remove folders. A file reached through two picked folders (one inside the other) shows up only once.
 - **Player** - misty sound wave with drifting golden light and notes, raised controls, play/pause, stop, previous/next, shuffle, repeat (all or one), seek bar with a large target time while dragging. The track list shows a small cover next to each track number.
 - **Playback with the screen off** - controls in the notification, on the lock screen, on headphones and in the car. Pauses for calls and when headphones disconnect, can resume when they connect, remembers the queue and position.
+- **Android Auto** - browse Library, Playlists and Favorites on the car screen and pick a track; it plays with the rest of its list. The lists show each track's cover (the OnlyMusic wave picture for tracks without one), and the current queue can be opened while music is playing.
 - **Gapless playback and crossfade** (2 to 8 seconds).
 - **Library** - tracks, artists, albums and folders, sorting, A-Z index, track info, favorites.
 - **Playlists** - create, rename in place, drag to reorder, undo delete; automatic Recently added and Favorites.
 - **Search** - titles, artists, albums and file names, with filters and recent searches.
 - **Settings** - accent color, sound wave style (Flowing, Calm, Off), skip short files, subfolders, headphone behavior.
+- **Languages** - English, Polish, Spanish, Portuguese (Brazil), Hindi, Indonesian, Russian, French, German, Turkish and Japanese. Picked in the side menu under Language, or follows the phone's language.
 
 ## Privacy
 
@@ -64,6 +100,25 @@ Inter typeface (SIL Open Font License 1.1), Jetpack Compose and AndroidX, Media3
 © 2026 Tomasz Pieczara. All rights reserved. The source code, assets, and documentation of this app are the property of the developer. Copying, modifying, redistributing, or selling all or part of the code, in source or compiled form, without the developer's written consent is prohibited.
 
 ## Changelog
+
+### v0.1.4 - 2026-11-13 (versionCode 15)
+- About: the Privacy policy tile now links to the full privacy policy on spotrobotics.app.
+
+### v0.1.3 - 2026-11-13 (versionCode 14)
+- OnlyMusic now speaks 11 languages: English, Polish, Spanish, Portuguese (Brazil), Hindi, Indonesian, Russian, French, German, Turkish and Japanese.
+- New Language item in the side menu, under Settings. Pick a language, or keep Phone language (the default) to follow the phone. The texts change at once and the music keeps playing.
+
+### v0.1.2 - 2026-11-03 (versionCode 13)
+- Android Auto: browse Library, Playlists and Favorites on the car screen and pick a track; it plays with the rest of its list. The current queue can be opened in the car while music is playing.
+- The car lists show each track's cover. Tracks without a cover show the OnlyMusic wave picture.
+
+### v0.1.1 - 2026-10-29 (versionCode 12)
+- The track list on the main screen is tighter: less space between tracks, under the player and above the first track, so more tracks fit on the screen. Covers and text keep their size.
+
+### v0.1.0 - 2026-10-29 (versionCode 11)
+- Smoother start: the track list opens right on the playing track instead of scrolling to it, and it no longer flashes empty before your queue loads.
+- Checking your folders at start runs quietly in the background. The progress bar shows only when there are new or changed files to read.
+- Release build: the app file is about 2 MB instead of 11.5 MB and runs faster. It is signed with a new key, so remove the previous OnlyMusic before installing and pick your music folders again.
 
 ### v0.0.10 - 2026-10-26 (versionCode 10)
 - The track list on the main screen shows a small cover next to each track number. Tracks without a cover keep the space empty, so the titles stay in line.

@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.1.4 - 2026-11-13 (versionCode 15)
+- About: the Privacy policy tile now links to the full privacy policy on spotrobotics.app.
+
+## v0.1.3 - 2026-11-13 (versionCode 14)
+- OnlyMusic now speaks 11 languages: English, Polish, Spanish, Portuguese (Brazil), Hindi, Indonesian, Russian, French, German, Turkish and Japanese.
+- New Language item in the side menu, under Settings. Pick a language, or keep Phone language (the default) to follow the phone. The texts change at once and the music keeps playing.
+
+## v0.1.2 - 2026-11-03 (versionCode 13)
+- Android Auto: browse Library, Playlists and Favorites on the car screen and pick a track; it plays with the rest of its list. The current queue can be opened in the car while music is playing.
+- The car lists show each track's cover. Tracks without a cover show the OnlyMusic wave picture.
+
+## v0.1.1 - 2026-10-29 (versionCode 12)
+- The track list on the main screen is tighter: less space between tracks, under the player and above the first track, so more tracks fit on the screen. Covers and text keep their size.
+
+## v0.1.0 - 2026-10-29 (versionCode 11)
+- Smoother start: the track list opens right on the playing track instead of scrolling to it, and it no longer flashes empty before your queue loads.
+- Checking your folders at start runs quietly in the background. The progress bar shows only when there are new or changed files to read.
+- Release build: the app file is about 2 MB instead of 11.5 MB and runs faster. It is signed with a new key, so remove the previous OnlyMusic before installing and pick your music folders again.
+
 ## v0.0.10 - 2026-10-26 (versionCode 10)
 - The track list on the main screen shows a small cover next to each track number. Tracks without a cover keep the space empty, so the titles stay in line.
 
